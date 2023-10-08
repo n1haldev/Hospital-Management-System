@@ -60,7 +60,9 @@ CREATE TABLE `billing` (
   `amount` float NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
   `details` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `patient` (`patient`),
+  CONSTRAINT `billing_ibfk_1` FOREIGN KEY (`patient`) REFERENCES `patient` (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,7 +143,10 @@ CREATE TABLE `nurse` (
   `certification` varchar(100) NOT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
-  PRIMARY KEY (`nurse_id`)
+  `ward` int DEFAULT NULL,
+  PRIMARY KEY (`nurse_id`),
+  KEY `ward` (`ward`),
+  CONSTRAINT `nurse_ibfk_1` FOREIGN KEY (`ward`) REFERENCES `ward` (`ward_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -249,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-02  0:23:45
+-- Dump completed on 2023-10-08 17:05:34
