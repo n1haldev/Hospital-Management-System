@@ -1,5 +1,4 @@
-Terminal close -- exit!
-trib 8.0.34, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Linux (x86_64)
 --
 -- Host: localhost    Database: hms
 -- ------------------------------------------------------
@@ -29,7 +28,6 @@ CREATE TABLE `appointment` (
   `patient_id` int NOT NULL,
   `doctor_id` int NOT NULL,
   `status` enum('pending','complete','deferred') NOT NULL,
-  `reason` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`appointment_id`),
   KEY `patient_id` (`patient_id`),
   KEY `doctor_id` (`doctor_id`),
@@ -60,7 +58,6 @@ CREATE TABLE `billing` (
   `billing_date` datetime NOT NULL,
   `amount` float NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
-  `details` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `patient` (`patient`),
   CONSTRAINT `billing_ibfk_1` FOREIGN KEY (`patient`) REFERENCES `patient` (`patient_id`)
@@ -115,7 +112,6 @@ CREATE TABLE `doctor` (
   `gender` enum('male','female') DEFAULT NULL,
   `specialization` varchar(30) DEFAULT NULL,
   `contact` int NOT NULL,
-  `license` varchar(100) NOT NULL,
   PRIMARY KEY (`doctor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -141,9 +137,6 @@ CREATE TABLE `nurse` (
   `name` varchar(30) NOT NULL,
   `gender` enum('male','female') DEFAULT NULL,
   `contact` int NOT NULL,
-  `certification` varchar(100) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
   `ward` int DEFAULT NULL,
   PRIMARY KEY (`nurse_id`),
   KEY `ward` (`ward`),
@@ -200,7 +193,6 @@ CREATE TABLE `prescription` (
   `doctor` int NOT NULL,
   `prescription_date` datetime NOT NULL,
   `medications` varchar(100) NOT NULL,
-  `instructions` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `patient` (`patient`),
   KEY `doctor` (`doctor`),
@@ -255,4 +247,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-08 17:05:34
+-- Dump completed on 2023-10-10 17:16:52
