@@ -1,28 +1,27 @@
 // pages/index.js
 import { useState } from 'react';
 
-export default function PatientUpdation() {
+export default function DoctorUpdation() {
   const initialFormData = {
     id: '',
     name: '',
     gender: '',
-    dob: '',
+    specialization: '',
     contact: '',
-    insurance: '',
   };
 
   const [searchID, setSearchID] = useState('');
-  const [patients, setPatients] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
 
   const handleSearch = async () => {
     // Fetch patients with matching IDs from the server
-    const response = await fetch(`/api/get-patients?id=${searchID}`);
+    const response = await fetch(`/api/get-doctors?id=${searchID}`);
     if (response.ok) {
       const data = await response.json();
       if (data.length > 0) {
         // If patient data is found, set the ID and load the first patient or reset the form
-        setPatients(data);
+        setDoctors(data);
         setFormData({
           ...data[0],
           id: searchID,
@@ -33,9 +32,9 @@ export default function PatientUpdation() {
         setFormData(initialFormData);
       }
     } else {
-      setPatients([]);
+      setDoctors([]);
       setFormData(initialFormData);
-      alert("No patient with patient ID " + searchID + " found")
+      alert("No doctor with patient ID " + searchID + " found")
     }
   };
 
@@ -51,26 +50,26 @@ export default function PatientUpdation() {
     e.preventDefault();
 
     // Send the updated data to your server to update the patient's information
-    const response = await fetch('/api/update-patient', {
+    const response = await fetch('/api/update-doctor', {
       method: 'POST',
       body: JSON.stringify(formData),
     });
 
     if (response.ok) {
       // Handle success, e.g., show a success message or update the UI
-      alert('Patient information updated successfully');
+      alert('Doctor information updated successfully');
     } else {
       // Handle errors
-      alert('Failed to update patient information');
+      alert('Failed to update doctor information');
     }
   };
 
   return (
     <div>
-      <h1 className="text-4xl text-center pt-2 font-bold">Search and Edit Patient Details</h1>
+      <h1 className="text-4xl text-center pt-2 font-bold">Search and Edit Doctor Details</h1>
       <div className="items-center p-8">
         <div>
-          <label htmlFor="id">Patient ID:</label>
+          <label htmlFor="id">Doctor ID:</label>
           <input
             type="text"
             id="name"
@@ -80,16 +79,16 @@ export default function PatientUpdation() {
           <button onClick={handleSearch}>Search</button>
         </div>
 
-        {patients.map((patient) => (
-          <div key={patient.id}>
-            <h1 className="text-4xl text-center pt-2 font-bold">Patient Registration</h1>
+        {doctors.map((doctor) => (
+          <div key={doctor.id}>
+            <h1 className="text-4xl text-center pt-2 font-bold">Doctor Updation</h1>
             <div className="items-center p-8">
-              <form onSubmit={(e) => handleSubmit(e, patient)}>
+              <form onSubmit={(e) => handleSubmit(e, doctor)}>
                 <fieldset className="border border-green-500 p-4">
-                  <legend className="p-2 font-bold">Patient Details</legend>
+                  <legend className="p-2 font-bold">Doctor Details</legend>
                   <label htmlFor="name">Name:</label>
                   <input
-                    type="text"
+                    type="text" 
                     id="name"
                     name="name"
                     value={formData.name}
@@ -116,36 +115,23 @@ export default function PatientUpdation() {
                   Female
                   <br />
                   <br />
-                  <label htmlFor="dob">Date of Birth:</label>
-                  <input
-                    type="date"
-                    id="dob"
-                    name="dob"
-                    value={formData.dob}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  <br />
-                  <label htmlFor="contact">Contact Information:</label>
-                  <input
-                    type="text"
-                    id="contact"
-                    name="contact"
+                  <label htmlFor='specialization'>Specialization: </label>
+                    <input
+                    type='text'
+                    id='specialization'
+                    name='specialization'
+                    value={formData.specialization}
+                    onChange={handleChange} />
+                    <br />
+                    <br />
+                    <label htmlFor='contactInfo'>Contact Information: </label>
+                    <input
+                    type='text'
+                    id='contact'
+                    name='contact'
                     value={formData.contact}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  <br />
-                  <label htmlFor="insurance">Insurance Information:</label>
-                  <br />
-                  <textarea
-                    placeholder="Enter patient insurance information"
-                    rows={4}
-                    cols={40}
-                    name="insurance"
-                    value={formData.insurance}
-                    onChange={handleChange}
-                  ></textarea>
+                    onChange={handleChange} />
+                    <br/>
                   <br />
                   <button type="submit">Save Changes</button>
                 </fieldset>

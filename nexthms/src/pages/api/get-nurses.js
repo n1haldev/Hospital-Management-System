@@ -16,27 +16,27 @@ export default async function handler(req, res) {
       // console.log(id);
 
       if (id === undefined) {
-        const [rows] = await connection.execute('SELECT * FROM patient');
+        const [rows] = await connection.execute('SELECT * FROM nurse');
         res.status(200).json(rows);
         connection.end();
       }
 
       else {
-        // Execute a query to retrieve patient details by ID
-        const [rows] = await connection.execute('SELECT * FROM patient WHERE patient_id = ?', [id]);
-        console.log(rows)
-  
-        connection.end(); // Close the MySQL connection
-  
-        if (rows.length > 0) {
-          res.status(200).json(rows);
-        } else {
-          res.status(404).json({ error: 'Patient not found' });
-        }
-        
+      
+      // Execute a query to retrieve patient details by ID
+      const [rows] = await connection.execute('SELECT * FROM nurse WHERE nurse_id = ?', [id]);
+      console.log(rows)
+
+      connection.end(); // Close the MySQL connection
+
+      if (rows.length > 0) {
+        res.status(200).json(rows);
+      } else {
+        res.status(404).json({ error: 'Nurse not found' });
       }
+    }
     } catch (error) {
-      console.error('Error fetching patient details:', error);
+      console.error('Error fetching Nurse details:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   } else {

@@ -7,33 +7,30 @@ export default async function handler(req, res) {
     try {
       // Create a MySQL database connection
       const connection = await mysql.createConnection({
-        // Configure your database connection details here
         // host: 'your_database_host',
         user: 'root',
         password: 'Il0vemym0m?',
         database: 'Hms',
       });
 
-      // Insert the form data into the database
       const [rows] = await connection.execute(
-        'INSERT INTO doctor (name, gender, specialization, contact) VALUES (?, ?, ?, ?)',
-        [
-          formData.name,
-          formData.gender,
-          formData.specialization,
-          formData.contactInfo,
+        'UPDATE doctor SET name = ?, gender = ?, specialization = ?, contact = ? WHERE doctor_id = ?', [
+            formData.name,
+            formData.gender,
+            formData.specialization,
+            formData.contact,
+            formData.id,
         ]
       );
-        
-      // Close the database connection
+
       await connection.end();
 
-      res.status(200).json({ message: 'Doctor registered successfully' });
+      res.status(200).json({ message: 'Doctor updated successfully' });
     } catch (error) {
-      console.log( error);
+      console.error('Error updating doctor:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   } else {
-    res.status(405).end(); // Method not allowed
+    res.status(405).end();
   }
 }

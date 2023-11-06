@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         // Replace with your database configuration
         // host: 'your_database_host',
         user: 'root',
-        password: 'Digvijay@2003',
+        password: 'Il0vemym0m?',
         database: 'Hms',
       });
 

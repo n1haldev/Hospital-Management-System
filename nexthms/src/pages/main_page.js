@@ -15,7 +15,7 @@ export default function Main_page() {
           <div className="grid grid-cols-3 space-x-5">
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/patient/register')}>Register</button>
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/patient/update')}>Update</button>
-            <button className="p-2 border rounded-xl border-red-500">Delete</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/patient/display')}>Display</button>
           </div>
         </fieldset>
       </div>
@@ -24,8 +24,8 @@ export default function Main_page() {
           <legend className="p-2 font-bold">Doctor</legend>
           <div className="grid grid-cols-3 space-x-5">
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/doctor/register')}>Register</button>
-            <button className="p-2 border rounded-xl border-red-500">Update</button>
-            <button className="p-2 border rounded-xl border-red-500">Delete</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/doctor/update')}>Update</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/doctor/display')}>Display</button>
           </div>
         </fieldset>
       </div>
@@ -35,8 +35,8 @@ export default function Main_page() {
           <div className="grid grid-cols-3 space-x-5">
             
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/nurse/register')}>Register</button>
-            <button className="p-2 border rounded-xl border-red-500">Update</button>
-            <button className="p-2 border rounded-xl border-red-500">Delete</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/nurse/update')}>Update</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/nurse/display')}>Display</button>
           </div>
         </fieldset>
       </div>
