@@ -14,7 +14,7 @@ export default function Main_page() {
           <legend className="p-2 font-bold">Patient</legend>
           <div className="grid grid-cols-3 space-x-5">
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/patient/register')}>Register</button>
-            <button className="p-2 border rounded-xl border-red-500">Update</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/patient/update')}>Update</button>
             <button className="p-2 border rounded-xl border-red-500">Delete</button>
           </div>
         </fieldset>
