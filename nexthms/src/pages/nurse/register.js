@@ -1,20 +1,14 @@
 import { useState, useEffect } from 'react';
 
 export default function NurseRegistration() {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     name: '',
     gender: '',
     contactInfo: '',
-    ward: '',
-  });
+    ward:'',
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
-  useEffect(() => {
-    // Fetch the last patient ID from the database and set it in the form
-    fetchLastNurseId().then(() => {
-      // Increment the last patient ID by 1 for the new patient
-      setFormData({ ...formData });
-    });
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,15 +21,17 @@ export default function NurseRegistration() {
     // Send the data to your server to store in the MySQL database
     const response = await fetch('/api/register-nurse', {
       method: 'POST',
-      body: JSON.stringify({ nurseId, ...formData }),
+      body: JSON.stringify({...formData }),
     });
 
     if (response.ok) {
       // Handle success, e.g., show a success message or redirect to a thank you page
-      console.log('Nurse registered successfully');
+      alert('Nurse registered successfully');
+      setFormData(initialFormData)
+
     } else {
       // Handle errors
-      console.error('Nurse registration failed');
+      alert('Nurse registration failed');
     }
   };
 
@@ -55,11 +51,21 @@ export default function NurseRegistration() {
                         onChange={handleChange} />
                     <br />
                     <br />
-                    <label htmlFor='gender'>Gender: </label>
-                    <select>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
+                    <label>Gender:</label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="Male"
+                        checked={formData.gender === 'Male'}
+                        onChange={handleChange}
+                      /> Male
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="Female"
+                        checked={formData.gender === 'Female'}
+                        onChange={handleChange}
+                      /> Female
                     <br />
                     <br />
                     <label htmlFor='ward'>Ward: </label>
@@ -78,6 +84,8 @@ export default function NurseRegistration() {
                         name='contactInfo'
                         value={formData.contactInfo}
                         onChange={handleChange} />
+                    <br/>
+                    <button type="submit">SUBMIT</button>
                 </fieldset>
             </form>
         </div>
@@ -85,6 +93,3 @@ export default function NurseRegistration() {
   );
 }
 
-function generateUniqueNurseId() {
-  return '123456'; // Replace with your unique ID generation logic
-}
