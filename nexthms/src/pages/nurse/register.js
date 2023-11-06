@@ -13,7 +13,7 @@ export default function NurseRegistration() {
     fetchLastNurseId().then((lastNurseId) => {
       // Increment the last patient ID by 1 for the new patient
       const newNurseId = lastNurseId + 1;
-      setFormData({ ...formData, nuresId: newNurseId });
+      setFormData({ ...formData });
     });
   }, []);
 

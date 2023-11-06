@@ -9,14 +9,14 @@ export default function PatientRegistration() {
     insuranceInfo: '',
   });
 
-  useEffect(() => {
-    // Fetch the last patient ID from the database and set it in the form
-    fetchLastPatientId().then((lastPatientId) => {
-      // Increment the last patient ID by 1 for the new patient
-      const newPatientId = lastPatientId + 1;
-      setFormData({ ...formData, patientId: newPatientId });
-    });
-  }, []);
+  // useEffect(() => {
+  //   // Fetch the last patient ID from the database and set it in the form
+  //   fetchLastPatientId().then(() => {
+  //     // Increment the last patient ID by 1 for the new patient
+  //     // const newPatientId = lastPatientId + 1;
+  //     setFormData({ ...formData });
+  //   });
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,18 +44,18 @@ export default function PatientRegistration() {
     }
   };
 
-  async function fetchLastPatientId() {
-    try {
-      const response = await fetch('/api/get-last-patient-id'); // Create an API route to fetch the last patient ID
-      if (response.ok) {
-        const lastPatientId = await response.json();
-        return lastPatientId;
-      }
-    } catch (error) {
-      console.error('Error fetching last patient ID:', error);
-    }
-    return null;
-  }
+  // async function fetchLastPatientId() {
+  //   try {
+  //     const response = await fetch('/api/get-last-patient-id'); // Create an API route to fetch the last patient ID
+  //     if (response.ok) {
+  //       const lastPatientId = await response.json();
+  //       return lastPatientId;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching last patient ID:', error);
+  //   }
+  //   return null;
+  // }
 
   return (
     <div>
@@ -73,11 +73,23 @@ export default function PatientRegistration() {
                         onChange={handleChange} />
                     <br />
                     <br />
-                    <label htmlFor='gender'>Gender: </label>
-                    <select onChange={handleChange}>
-                        <option value={formData.gender}>Male</option>
-                        <option value={formData.gender}>Female</option>
-                    </select>
+                    <div>
+                      <label>Gender:</label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="Male"
+                        checked={formData.gender === 'Male'}
+                        onChange={handleChange}
+                      /> Male
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="Female"
+                        checked={formData.gender === 'Female'}
+                        onChange={handleChange}
+                      /> Female
+                    </div>
                     <br />
                     <br />
                     <label htmlFor='dob'>Date of Birth: </label>
@@ -100,7 +112,7 @@ export default function PatientRegistration() {
                     <br />
                     <label htmlFor='insuranceInfo'>Insurance Information: </label>
                     <br />
-                    <textarea placeholder='Enter patient insurance information' rows={4} cols={40}></textarea>
+                    <textarea placeholder='Enter patient insurance information' rows={4} cols={40} name="insuranceInfo" value={formData.insuranceInfo} onChange={handleChange}></textarea>
                     <br/>
                     <button type="submit">SUBMIT</button>
                 </fieldset>
@@ -108,8 +120,4 @@ export default function PatientRegistration() {
         </div>
     </div>
   );
-}
-
-function generateUniquePatientId() {
-  return '123456'; // Replace with your unique ID generation logic
 }
