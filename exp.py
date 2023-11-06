@@ -12,7 +12,7 @@ connection = mysql.connector.connect(
 
 cursor = connection.cursor()
 
-cursor.execute("create table dummy(id int primary key)")
+cursor.execute("insert into patient values(1, 'Nihal T M', 'male', '2002-10-10', '7892896964', 'no insurance')")
 
 results = cursor.fetchall()
 
