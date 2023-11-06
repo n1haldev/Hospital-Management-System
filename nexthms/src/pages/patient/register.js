@@ -1,22 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function PatientRegistration() {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     name: '',
     gender: '',
     dob: '',
     contactInfo: '',
     insuranceInfo: '',
-  });
+  };
 
-  // useEffect(() => {
-  //   // Fetch the last patient ID from the database and set it in the form
-  //   fetchLastPatientId().then(() => {
-  //     // Increment the last patient ID by 1 for the new patient
-  //     // const newPatientId = lastPatientId + 1;
-  //     setFormData({ ...formData });
-  //   });
-  // }, []);
+  const [formData, setFormData] = useState(initialFormData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,9 +19,6 @@ export default function PatientRegistration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Generate a unique ID for the patient (you can use a UUID library)
-    // const patientId = generateUniquePatientId();
-
     // Send the data to your server to store in the MySQL database
     const response = await fetch('/api/register-patient', {
       method: 'POST',
@@ -37,25 +27,14 @@ export default function PatientRegistration() {
 
     if (response.ok) {
       // Handle success, e.g., show a success message or redirect to a thank you page
-      console.log('Patient registered successfully');
+      alert('Patient registered successfully');
+      // clearing form elements
+      setFormData(initialFormData)
     } else {
       // Handle errors
-      console.error('Patient registration failed');
+      alert('Patient registration failed');
     }
   };
-
-  // async function fetchLastPatientId() {
-  //   try {
-  //     const response = await fetch('/api/get-last-patient-id'); // Create an API route to fetch the last patient ID
-  //     if (response.ok) {
-  //       const lastPatientId = await response.json();
-  //       return lastPatientId;
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching last patient ID:', error);
-  //   }
-  //   return null;
-  // }
 
   return (
     <div>

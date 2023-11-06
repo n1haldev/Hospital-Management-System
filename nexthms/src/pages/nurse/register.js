@@ -10,9 +10,8 @@ export default function NurseRegistration() {
 
   useEffect(() => {
     // Fetch the last patient ID from the database and set it in the form
-    fetchLastNurseId().then((lastNurseId) => {
+    fetchLastNurseId().then(() => {
       // Increment the last patient ID by 1 for the new patient
-      const newNurseId = lastNurseId + 1;
       setFormData({ ...formData });
     });
   }, []);
@@ -24,9 +23,6 @@ export default function NurseRegistration() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Generate a unique ID for the patient (you can use a UUID library)
-    const nurseId = generateUniqueNurseId();
 
     // Send the data to your server to store in the MySQL database
     const response = await fetch('/api/register-nurse', {
@@ -42,19 +38,6 @@ export default function NurseRegistration() {
       console.error('Nurse registration failed');
     }
   };
-
-  async function fetchLastNurseId() {
-    try {
-      const response = await fetch('/api/get-last-nurse-id'); // Create an API route to fetch the last patient ID
-      if (response.ok) {
-        const lastNurseId = await response.json();
-        return lastNurseId;
-      }
-    } catch (error) {
-      console.error('Error fetching last nurse ID:', error);
-    }
-    return null;
-  }
 
   return (
     <div>
