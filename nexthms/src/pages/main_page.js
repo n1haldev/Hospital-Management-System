@@ -40,6 +40,17 @@ export default function Main_page() {
           </div>
         </fieldset>
       </div>
+      <div className="items-center w-full p-8">
+        <fieldset className="border rounded-xl border-green-500 p-4">
+          <legend className="p-2 font-bold">Appointment</legend>
+          <div className="grid grid-cols-2 space-x-5">
+            
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/create-appointment')}>Create Appointment</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/display')}>Display Appointment</button>
+          </div>
+        </fieldset>
+      </div>
+
     </div>
   )
 }
