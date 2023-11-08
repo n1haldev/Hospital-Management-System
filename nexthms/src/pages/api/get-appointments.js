@@ -13,7 +13,6 @@ export default async function handler(req, res) {
       });
 
       const { id } = req.query;
-      // console.log(id);
 
       if (id === undefined) {
         const [rows] = await connection.execute('SELECT * FROM appointment');
@@ -23,8 +22,6 @@ export default async function handler(req, res) {
 
       else {
       
-      // Execute a query to retrieve patient details by ID
-      // const [rows] = await connection.execute('SELECT * FROM appointment join patient on patient.patient_id=appointment.patient_id WHERE patient.patient_id = ?', [id]);
       const [rows] = await connection.execute(
         `SELECT
             appointment.appointment_id,
@@ -42,10 +39,9 @@ export default async function handler(req, res) {
             appointment.status = 'pending' AND
             appointment.patient_id = ?`,
         [id]
-      );      
-      console.log(rows)
+      );
 
-      connection.end(); // Close the MySQL connection
+      connection.end();
 
       if (rows.length > 0) {
         res.status(200).json(rows);

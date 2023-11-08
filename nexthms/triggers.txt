@@ -1,0 +1,11 @@
+DELIMITER $$
+
+CREATE TRIGGER update_appointment_status
+AFTER INSERT ON billing FOR EACH ROW
+BEGIN
+  UPDATE appointment
+  SET status = 'complete'
+  WHERE patient_id = NEW.patient;
+END$$
+
+DELIMITER ;

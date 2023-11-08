@@ -12,10 +12,11 @@ export default function Main_page() {
       <div className="items-center w-full p-8">
         <fieldset className="border rounded-xl border-green-500 p-4">
           <legend className="p-2 font-bold">Ward</legend>
-          <div className="grid grid-cols-3 space-x-5">
+          <div className="grid grid-cols-4 space-x-5">
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/all-ward')}>All wards info</button>
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/search-by-id')}>Search by Patient ID</button>
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/search-by-name')}>Search by Patient Name</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/admit-patient')}>Admit Patient</button>
           </div>
         </fieldset>
       </div>
