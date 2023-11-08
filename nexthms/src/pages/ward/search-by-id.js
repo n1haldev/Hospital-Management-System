@@ -16,6 +16,7 @@ export default function WardDetails() {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setWardData(data);
       } else {
         setError('Patient not found');

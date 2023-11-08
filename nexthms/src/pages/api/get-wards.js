@@ -12,19 +12,21 @@ export default async function handler(req, res) {
         database: 'Hms',
       });
 
-      const { query } = req.query;
+      const { id, name } = req.query;
+      console.log(id)
+      console.log(name)
 
-      if (query === undefined) {
+      if (id === undefined && name === undefined) {
         const [rows] = await connection.execute(
           'SELECT ward.ward_id, ward.ward_type, ward.patient, patient.name, nurse.nurse_id, ward.availability FROM ward join patient on ward.patient = patient.patient_id join nurse on ward.ward_id = nurse.ward'
         );
         res.status(200).json(rows);
         connection.end();
-      } else if (!isNaN(query)) {
+      } else if (id !== undefined && name === undefined) {
         // Check if the query is numeric (patient_id) and fetch by patient ID
         const [rows] = await connection.execute(
           'SELECT ward.ward_id, ward.ward_type, ward.patient, patient.name, nurse.nurse_id, ward.availability FROM ward join patient on ward.patient = patient.patient_id join nurse on ward.ward_id = nurse.ward WHERE ward.patient = ?',
-          [query]
+          [id]
         );
 
         connection.end();
@@ -38,7 +40,7 @@ export default async function handler(req, res) {
         // Search by patient name
         const [rows] = await connection.execute(
           'SELECT ward.ward_id, ward.ward_type, ward.patient, patient.name, nurse.nurse_id, ward.availability FROM ward join patient on ward.patient = patient.patient_id join nurse on ward.ward_id = nurse.ward WHERE patient.name LIKE ?',
-          [`%${query}%`]
+          [`%${name}%`]
         );
 
         connection.end();
