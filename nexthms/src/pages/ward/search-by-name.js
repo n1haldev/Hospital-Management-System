@@ -13,7 +13,7 @@ export default function WardDetails() {
       setWardData([]); // Clear the previous data
   
       // Fetch ward details for the provided patient ID
-      const response = await fetch(`/api/get-wards?name=${patientId}}}`);
+      const response = await fetch(`/api/get-wards?name=${patientId}`);
   
       if (response.ok) {
         const data = await response.json();

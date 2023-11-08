@@ -24,7 +24,25 @@ export default async function handler(req, res) {
       else {
       
       // Execute a query to retrieve patient details by ID
-      const [rows] = await connection.execute('SELECT * FROM appointment WHERE appointment_id = ?', [id]);
+      // const [rows] = await connection.execute('SELECT * FROM appointment join patient on patient.patient_id=appointment.patient_id WHERE patient.patient_id = ?', [id]);
+      const [rows] = await connection.execute(
+        `SELECT
+            appointment.appointment_id,
+            appointment.patient_id,
+            patient.name AS patient_name,
+            appointment.doctor_id,
+            doctor.name AS doctor_name,
+            appointment.date_time,
+            appointment.status
+         FROM
+            appointment
+         INNER JOIN patient ON appointment.patient_id = patient.patient_id
+         INNER JOIN doctor ON appointment.doctor_id = doctor.doctor_id
+         WHERE
+            appointment.status = 'pending' AND
+            appointment.patient_id = ?`,
+        [id]
+      );      
       console.log(rows)
 
       connection.end(); // Close the MySQL connection

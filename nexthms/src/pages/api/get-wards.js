@@ -12,7 +12,8 @@ export default async function handler(req, res) {
         database: 'Hms',
       });
 
-      const { id, name } = req.query;
+      const { id } = req.query;
+      const { name } = req.query;
       console.log(id)
       console.log(name)
 
