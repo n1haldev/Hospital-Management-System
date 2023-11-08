@@ -11,6 +11,34 @@ export default function Main_page() {
       <h1 className="text-4xl text-center pt-2 font-bold">Hospital Management System</h1>
       <div className="items-center w-full p-8">
         <fieldset className="border rounded-xl border-green-500 p-4">
+          <legend className="p-2 font-bold">Ward</legend>
+          <div className="grid grid-cols-3 space-x-5">
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/all-ward')}>All wards info</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/search-by-id')}>Search by Patient ID</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/ward/search-by-name')}>Search by Patient Name</button>
+          </div>
+        </fieldset>
+      </div>
+      <div className="items-center w-full p-8">
+        <fieldset className="border rounded-xl border-green-500 p-4">
+          <legend className="p-2 font-bold">Appointment</legend>
+          <div className="grid grid-cols-2 space-x-5">
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/create-appointment')}>Create Appointment</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/display')}>Display Appointment</button>
+          </div>
+        </fieldset>
+      </div>
+      <div className="items-center w-full p-8">
+        <fieldset className="border rounded-xl border-green-500 p-4">
+          <legend className="p-2 font-bold">Billing</legend>
+          <div className="grid grid-cols-2 space-x-5">
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/create-appointment')}>Create Appointment</button>
+            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/display')}>Display Appointment</button>
+          </div>
+        </fieldset>
+      </div>
+      <div className="items-center w-full p-8">
+        <fieldset className="border rounded-xl border-green-500 p-4">
           <legend className="p-2 font-bold">Patient</legend>
           <div className="grid grid-cols-3 space-x-5">
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/patient/register')}>Register</button>
@@ -37,16 +65,6 @@ export default function Main_page() {
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/nurse/register')}>Register</button>
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/nurse/update')}>Update</button>
             <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/nurse/display')}>Display</button>
-          </div>
-        </fieldset>
-      </div>
-      <div className="items-center w-full p-8">
-        <fieldset className="border rounded-xl border-green-500 p-4">
-          <legend className="p-2 font-bold">Appointment</legend>
-          <div className="grid grid-cols-2 space-x-5">
-            
-            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/create-appointment')}>Create Appointment</button>
-            <button className="p-2 border rounded-xl border-red-500" onClick={() => router.push('/appointment/display')}>Display Appointment</button>
           </div>
         </fieldset>
       </div>
