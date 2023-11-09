@@ -1,0 +1,24 @@
+DELIMITER //
+
+CREATE FUNCTION GetAppointmentCounts()
+RETURNS JSON
+DETERMINISTIC
+BEGIN
+    DECLARE pending_count INT;
+    DECLARE complete_count INT;
+    DECLARE result JSON;
+
+    SELECT COUNT(*) INTO pending_count
+    FROM appointment
+    WHERE status = 'pending';
+
+    SELECT COUNT(*) INTO complete_count
+    FROM appointment
+    WHERE status = 'complete';
+
+    SET result = JSON_OBJECT('pending', pending_count, 'complete', complete_count);
+
+    RETURN result;
+END //
+
+DELIMITER ;

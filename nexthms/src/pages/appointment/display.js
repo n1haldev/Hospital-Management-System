@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function DisplayAppointment() {
     const [appointments, setAppointments] = useState([]);
+    const [counts, setCounts] = useState({ pending: 0, complete: 0 });
 
     useEffect(() => {
         async function fetchAppointments() {
@@ -10,6 +11,14 @@ export default function DisplayAppointment() {
                 if (response.ok) {
                     const data = await response.json();
                     setAppointments(data);
+                }
+
+                const responseCount = await fetch('/api/get-patient-count');
+                if (responseCount.ok) {
+                    const countData = await responseCount.json();
+                    setCounts(countData);
+                } else {
+                    alert("Something went wrong loading patient count");
                 }
             }
             catch (error) {
@@ -22,6 +31,7 @@ export default function DisplayAppointment() {
     return (
         <div>
             <h1>Appointment List</h1>
+            <h3>Pending: {counts.pending}, Complete: {counts.complete}</h3>
             <ul>
                 {appointments.map((appointment) => (
                     <li key={appointment.appointment_id}>

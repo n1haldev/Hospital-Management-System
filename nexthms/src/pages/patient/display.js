@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function DisplayPatient() {
     const [patients, setPatients] = useState([]);
+    const [counts, setCounts] = useState({ pending: 0, complete: 0 });
 
     useEffect(() => {
         async function fetchPatients() {
@@ -10,9 +11,10 @@ export default function DisplayPatient() {
                 if (response.ok) {
                     const data = await response.json();
                     setPatients(data);
+                } else {
+                    alert("Something went wrong loading patients");
                 }
-            }
-            catch (error) {
+            } catch (error) {
                 console.error(error);
             }
         }
