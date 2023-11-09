@@ -10,6 +10,9 @@ export default function Main_page() {
     <div>
       <h1 className="text-4xl text-center pt-2 font-bold">Hospital Management System</h1>
       <div className="items-center w-full p-8">
+        <div className="w-full flex items-end justify-end">
+          <button className="grid grid-cols-1 w-40 border-4 rounded-xl border-blue-500" onClick={() => router.push('/report/generate-report')}>Generate Report</button>
+        </div>
         <fieldset className="border rounded-xl border-green-500 p-4">
           <legend className="p-2 font-bold">Ward</legend>
           <div className="grid grid-cols-4 space-x-5">

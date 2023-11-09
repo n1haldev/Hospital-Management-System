@@ -1,0 +1,41 @@
+DELIMITER //
+
+CREATE PROCEDURE GenerateAppointmentBillingReport(IN start_date DATE, IN end_date DATE)
+BEGIN
+    -- Temporary table to store the report
+    CREATE TEMPORARY TABLE ReportTable (
+        appointment_id INT,
+        date_time DATETIME,
+        patient_name VARCHAR(30),
+        doctor_name VARCHAR(30),
+        status ENUM('pending','complete','deferred'),
+        billing_date DATETIME,
+        amount FLOAT,
+        payment_status TINYINT(1)
+    );
+
+    -- Insert appointment and billing information into the temporary table
+    INSERT INTO ReportTable
+    SELECT
+        a.appointment_id,
+        a.date_time,
+        p.name AS patient_name,
+        d.name AS doctor_name,
+        a.status,
+        b.billing_date,
+        b.amount,
+        b.payment_status
+    FROM
+        appointment a
+        JOIN patient p ON a.patient_id = p.patient_id
+        JOIN doctor d ON a.doctor_id = d.doctor_id
+        LEFT JOIN billing b ON a.patient_id = b.patient;
+
+    -- Select the report from the temporary table
+    SELECT * FROM ReportTable WHERE date_time BETWEEN start_date AND end_date;
+
+    -- Drop the temporary table
+    DROP TEMPORARY TABLE IF EXISTS ReportTable;
+END //
+
+DELIMITER ;

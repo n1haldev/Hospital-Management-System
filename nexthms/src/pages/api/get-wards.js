@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         const [rows] = await connection.execute(
           'SELECT ward.ward_id, ward.ward_type, ward.patient, patient.name, nurse.nurse_id, ward.availability FROM ward join patient on ward.patient = patient.patient_id join nurse on ward.ward_id = nurse.ward'
         );
-        res.status(200).json(rows);
+        res.status(200).json(rows); 
         connection.end();
       } else if (id !== undefined && name === undefined) {
         // Check if the query is numeric (patient_id) and fetch by patient ID
